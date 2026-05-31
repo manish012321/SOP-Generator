@@ -30,9 +30,28 @@ const Dashboard = () => {
     }
   };
 
+  const handleDownload = async () => {
+    try {
+        const response = await api.get(`/sops/${sop._id}/export/pdf`, {
+            responseType: 'blob'  // ← important, tells axios to expect a file
+        });
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+
+        
+        link.setAttribute('download', `${sop.title}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    } catch (err) {
+        console.error(err);
+    }
+};
+
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-200 via-white to-purple-50">
       <Header />
 
      
@@ -61,12 +80,10 @@ const Dashboard = () => {
 
           <div className="flex flex-wrap gap-4 mt-8">
             <button
-              onClick={handleGenerate}
-              disabled={loading || !rawText}
               className="flex items-center bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-semibold px-6 py-4 rounded-xl shadow-md hover:scale-105 transition-all duration-300"
             >
               <WandSparkles size={20} className="mr-2" />
-              {loading ? "Generating..." : "Generate SOP"}
+              Generate SOP
             </button>
 
             <button className="flex items-center bg-white border border-gray-200 hover:border-purple-300 text-gray-800 font-semibold px-6 py-4 rounded-xl shadow-sm hover:scale-105 transition-all duration-300">
@@ -201,7 +218,7 @@ const Dashboard = () => {
 
               </div>
 
-              <button className="w-full mt-4 border border-gray-200 hover:border-purple-300 text-gray-700 font-medium py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 transition-all">
+              <button onClick={handleDownload} disabled={!sop} className="w-full mt-4 border border-gray-200 hover:border-purple-300 text-gray-700 font-medium py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 transition-all">
                 <Download size={15} className="text-purple-600" />
                 Download SOP
               </button>
