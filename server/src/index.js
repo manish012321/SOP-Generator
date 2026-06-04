@@ -21,7 +21,7 @@ async function startServer() {
     await connectDB();
 
     app.use(cors(corsOptions));      // ← cors first
-    app.options('*', cors(corsOptions)); // ← preflight handler
+   
     app.use(express.json());         // ← json after cors
 
     app.use("/api/auth", router);
