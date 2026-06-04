@@ -16,11 +16,12 @@ async function startServer() {
 
     app.use(express.json());
     app.use(cors({
-        origin: [
-            process.env.CLIENT_URL||'http://localhost:3000'
-        ],
-        credentials: true
-    }));
+    origin: [
+        "http://localhost:5173",
+        process.env.CLIENT_URL
+    ],
+    credentials: true
+}));
 
     // routes
     app.use("/api/auth", router);
