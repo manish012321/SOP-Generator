@@ -15,12 +15,17 @@ async function startServer() {
     await connectDB();
 
     app.use(express.json());
-    app.use(cors());
+    app.use(cors({
+        origin: [
+            process.env.CLIENT_URL||'http://localhost:3000'
+        ],
+        credentials: true
+    }));
 
     // routes
-    app.use("/api/auth",router);
+    app.use("/api/auth", router);
 
-    app.use("/api/sops",sopRouter);
+    app.use("/api/sops", sopRouter);
 
     app.post("/api/contact", contactRoute);
 
