@@ -11,9 +11,9 @@ const Header = () => {
   const [loading, setLoading] = useState(true);
 
   const navLinks = [
-    { name: "Home", href: "/dashboard" },
+    { name: "Home", href: "/" },
+    { name: "Dashboard", href: "/dashboard" },
     { name: "Templates", href: "/templates" },
-    { name: "Features", href: "/features" },
     { name: "Contact", href: "/contact" },
     { name: "SOPs", href: "/sops" },
     { name: "How it Works", href: "/how-it-works" },
@@ -69,16 +69,12 @@ const Header = () => {
           ))}
         </nav>
 
-        <button onClick={() => { setTheme(!theme) }}>
-          {theme ? <Sun /> : <Moon />}
-        </button>
-
-
+       
         {/* Logout button */}
 
         {
           isAuthenticated ? (
-            <button onClick={handleLogout} className=" hover:bg-purple-100 hover:scale-105 active:scale-95 transition-all duration-300 text-black px-6 py-2.5 rounded-2xl font-semibold shadow-md" >
+            <button onClick={handleLogout} className=" hover:bg-red-400 bg-red-100 hover:scale-105 active:scale-95 transition-all duration-300 text-black px-6 py-2.5 rounded-2xl font-semibold shadow-md" >
               Logout
             </button>
           ) : (
