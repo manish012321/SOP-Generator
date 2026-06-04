@@ -6,6 +6,9 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import SopList from './pages/SopList';
+import Home from './pages/Home';
+import HowItWorks from './pages/HowItWorks';
+import Contact from './pages/Contact';
 const App = () => {
   return (
     <>
@@ -14,6 +17,7 @@ const App = () => {
 
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<Home/>} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/dashboard' element={<ProtectedRoute>
@@ -23,7 +27,8 @@ const App = () => {
             <SopList/>
           </ProtectedRoute>}/>
 
-
+            <Route path='/how-it-works' element={<HowItWorks/>}/>
+            <Route path='/contact' element={<Contact/>}/>
         </Routes>
       </BrowserRouter>
     </>

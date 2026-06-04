@@ -4,6 +4,7 @@ import connectDB from './config/db.js';
 import cors from 'cors';
 import router from './routes/authRoutes.js';
 import sopRouter from './routes/sopRoutes.js';
+import { contactRoute } from './routes/contactRoute.js';
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ async function startServer() {
 
     app.use("/api/sops",sopRouter);
 
+    app.post("/api/contact", contactRoute);
 
 
     app.get('/', (req, res) => {
