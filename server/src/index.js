@@ -9,41 +9,33 @@ import { contactRoute } from './routes/contactRoute.js';
 dotenv.config();
 const app = express();
 
-
-async function startServer() {
-
-    await connectDB();
-
-    app.use(express.json());
-    app.use(cors({
+const corsOptions = {
     origin: [
         "http://localhost:5173",
         process.env.CLIENT_URL
     ],
     credentials: true
-}));
+};
 
-    // routes
+async function startServer() {
+    await connectDB();
+
+    app.use(cors(corsOptions));      // ← cors first
+    app.options('*', cors(corsOptions)); // ← preflight handler
+    app.use(express.json());         // ← json after cors
+
     app.use("/api/auth", router);
-
     app.use("/api/sops", sopRouter);
-
     app.post("/api/contact", contactRoute);
-
 
     app.get('/', (req, res) => {
         res.json({ message: 'SOP API running' });
     });
 
-
     const PORT = process.env.PORT || 5000;
-
     app.listen(PORT, () => {
         console.log(`server is running on port ${PORT}`);
-
     });
-
 }
+
 startServer();
-
-
