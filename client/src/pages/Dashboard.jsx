@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useState } from "react";
 import Header from "../components/Header";
 import api from '../api/axios.js';
 import { useNavigate } from 'react-router-dom';
@@ -7,10 +7,10 @@ import {
   CirclePlay, Clock, Download, FileCheck,
   ShieldCheck, Sparkles, User, WandSparkles, Zap,
 } from "lucide-react";
-import { useLocation } from 'react-router-dom';
 
 
-const location = useLocation();
+
+
 
 const Dashboard = () => {
   const [rawText, setRawText] = useState('');
@@ -50,11 +50,7 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    if (location.state?.prefill) {
-        setRawText(location.state.prefill);
-    }
-}, []);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-200 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
