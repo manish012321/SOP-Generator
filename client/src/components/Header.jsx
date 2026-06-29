@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useEffect, useState } from "react";
 import { FileText, Menu, Moon, Sun, X } from "lucide-react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore.js';
@@ -6,9 +6,21 @@ import useAuthStore from '../store/authStore.js';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [theme, setTheme] = useState(false);
+ const [theme, setTheme] = useState(
+    localStorage.getItem('theme') || 'light'
+);
 
-  const [loading, setLoading] = useState(true);
+useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+}, [theme]);
+
+const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+};
+
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -33,7 +45,7 @@ const Header = () => {
 
   return (
 
-    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/90 dark:bg-gray-900 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
 
@@ -42,7 +54,7 @@ const Header = () => {
             <FileText size={22} />
           </div>
 
-          <h1 className="text-2xl font-extrabold tracking-tight text-gray-800">
+          <h1 className="text-2xl font-extrabold tracking-tight text-gray-800 dark:text-white">
             SOP <span className="text-purple-600">Generator</span>
           </h1>
         </div>
@@ -53,16 +65,17 @@ const Header = () => {
             <NavLink
               key={link.name}
               to={link.href}
-              className={({ isActive }) =>
-                `relative font-medium transition duration-300
-         after:absolute after:left-0 after:-bottom-1
-         after:h-0.5 after:bg-purple-600 after:transition-all
-         hover:text-purple-600 hover:after:w-full
-         ${isActive
-                  ? "text-purple-600 after:w-full"
-                  : "text-gray-700 after:w-0"
-                }`
-              }
+               className={({ isActive }) =>
+    `relative font-medium transition duration-300
+     after:absolute after:left-0 after:-bottom-1
+     after:h-0.5 after:bg-purple-600 after:transition-all
+     hover:text-purple-600 hover:after:w-full
+     dark:hover:text-purple-400
+     ${isActive
+       ? "text-purple-600 dark:text-purple-400 after:w-full"
+       : "text-gray-700 dark:text-gray-300 after:w-0"
+     }`
+  }
             >
               {link.name}
             </NavLink>
@@ -74,20 +87,24 @@ const Header = () => {
 
         {
           isAuthenticated ? (
-            <button onClick={handleLogout} className=" hover:bg-red-400 bg-red-100 hover:scale-105 active:scale-95 transition-all duration-300 text-black px-6 py-2.5 rounded-2xl font-semibold shadow-md" >
+            <button onClick={handleLogout} className=" hover:bg-red-400 bg-red-100 dark:bg-red-900 dark:text-white hover:scale-105 active:scale-95 transition-all duration-300 text-black px-6 py-2.5 rounded-2xl font-semibold shadow-md" >
               Logout
             </button>
           ) : (
             <button
               onClick={() => navigate('/login')}
-              className=" hover:bg-purple-100 hover:scale-105 active:scale-95 transition-all duration-300 text-black px-6 py-2.5 rounded-2xl font-semibold shadow-md"
+              className=" hover:bg-purple-100 dark:hover:bg-purple-900 dark:text-white hover:scale-105 active:scale-95 transition-all duration-300 text-black px-6 py-2.5 rounded-2xl font-semibold shadow-md"
             >
               Login
             </button>
           )
         }
 
-
+       <button onClick={toggleTheme}className="hover:bg-purple-100 dark:hover:bg-gray-700 dark:text-white hover:scale-105 active:scale-95 transition-all duration-300 text-black p-3 rounded-lg">
+         
+         {theme === 'dark' ? <Sun/> : <Moon/>}
+        
+       </button>
 
 
 
@@ -102,7 +119,7 @@ const Header = () => {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-gray-700 transition"
+          className="md:hidden text-gray-700 transition dark:text-gray-300"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -110,13 +127,13 @@ const Header = () => {
 
 
       {isOpen && (
-        <div className="md:hidden px-6 pb-5 bg-white border-t border-gray-100 shadow-sm animate-in slide-in-from-top duration-300">
+        <div className="md:hidden px-6 pb-5 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700 shadow-sm">
           <nav className="flex flex-col gap-4 mt-4">
             {navLinks.map((link) => (
               <Link
-                key={link}
+                key={link.name}
                 to={link.href}
-                className="text-gray-700 hover:text-purple-600 font-medium transition"
+                className="text-gray-700 dark:text-gray-300 hover:text-purple-600 font-medium transition"
               >
                 {link.name}
               </Link>

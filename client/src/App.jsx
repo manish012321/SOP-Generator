@@ -11,6 +11,8 @@ import HowItWorks from './pages/HowItWorks';
 import Contact from './pages/Contact';
 import Template from './pages/Template';
 const App = () => {
+
+  
   return (
     <>
 
