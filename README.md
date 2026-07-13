@@ -91,6 +91,7 @@ JWT_SECRET=your_jwt_secret_key
 GROQ_API_KEY=your_groq_api_key
 PORT=5000
 CLIENT_URL=http://localhost:5173
+RESEND_API_KEY:
 ```
 
 Start the server:
