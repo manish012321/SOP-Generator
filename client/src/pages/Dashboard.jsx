@@ -1,14 +1,12 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import Header from "../components/Header";
 import api from '../api/axios.js';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore.js';
 import {
   CirclePlay, Clock, Download, FileCheck,
   ShieldCheck, Sparkles, User, WandSparkles, Zap,
 } from "lucide-react";
-
-
 
 
 
@@ -49,6 +47,15 @@ const Dashboard = () => {
       console.error(err);
     }
   };
+
+
+const location = useLocation();
+
+useEffect(() => {
+    if (location.state?.prefill) {
+    setRawText(location.state.prefill);
+    }
+}, []);
 
 
 
