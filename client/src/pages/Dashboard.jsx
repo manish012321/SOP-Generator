@@ -1,14 +1,15 @@
-import  { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import api from '../api/axios.js';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useAuthStore from '../store/authStore.js';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import {
   CirclePlay, Clock, Download, FileCheck,
+  Mic,
+  MicOff,
   ShieldCheck, Sparkles, User, WandSparkles, Zap,
 } from "lucide-react";
-
-
 
 const Dashboard = () => {
   const [rawText, setRawText] = useState('');
@@ -16,7 +17,30 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { logout } = useAuthStore();
+
+
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  // Keep the textarea in sync with the live transcript while recording
+  useEffect(() => {
+    if (listening) {
+      setRawText(transcript);
+    }
+  }, [transcript, listening]);
+
+  const handleStartRecording = () => {
+    resetTranscript();
+    SpeechRecognition.startListening({ continuous: true });
+  };
+
+  const handleStopRecording = () => {
+    SpeechRecognition.stopListening();
+  };
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -48,16 +72,17 @@ const Dashboard = () => {
     }
   };
 
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
 
-const location = useLocation();
+  const location = useLocation();
 
-useEffect(() => {
+  useEffect(() => {
     if (location.state?.prefill) {
-    setRawText(location.state.prefill);
+      setRawText(location.state.prefill);
     }
-}, []);
-
-
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-200 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
@@ -91,7 +116,7 @@ useEffect(() => {
               Generate SOP
             </button>
 
-            <button className="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-purple-300 text-gray-800 dark:text-gray-200 font-semibold px-6 py-4 rounded-xl shadow-sm hover:scale-105 transition-all duration-300">
+            <button onClick={()=> navigate('/how-it-works')}  className="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-purple-300 text-gray-800 dark:text-gray-200 font-semibold px-6 py-4 rounded-xl shadow-sm hover:scale-105 transition-all duration-300">
               <CirclePlay size={22} className="mr-2 text-purple-700 dark:text-purple-400" />
               How it Works
             </button>
@@ -162,6 +187,28 @@ useEffect(() => {
                   <p className="text-xs text-gray-400 dark:text-gray-500 text-right mt-1">{rawText.length}/500</p>
                 </div>
               </div>
+
+              {browserSupportsSpeechRecognition && (
+                <div className="flex justify-end gap-2 mt-1">
+                  <button
+                    onClick={handleStartRecording}
+                    disabled={listening}
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${listening
+                        ? 'bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 animate-pulse'
+                        : 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 hover:bg-purple-200'
+                      }`}
+                  >
+                    <Mic size={14} />
+                  </button>
+                  <button
+                    onClick={handleStopRecording}
+                    disabled={!listening}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 hover:bg-purple-200 disabled:opacity-50"
+                  >
+                    <MicOff size={14} />
+                  </button>
+                </div>
+              )}
 
               <button
                 onClick={handleGenerate}
