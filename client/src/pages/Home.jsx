@@ -1,178 +1,352 @@
 import Header from '../components/Header'
+import { useNavigate } from 'react-router-dom'
 import {
-  CirclePlay, Clock, Download, FileCheck,
-  ShieldCheck, Sparkles, User, WandSparkles, Zap,
+  WandSparkles, FileText, Download, Zap,
+  ShieldCheck, Clock, Users, Star, ArrowRight,
+  CheckCircle, MessageSquare, BarChart3,
+  Link
 } from "lucide-react";
-import { toast } from "react-toastify";
 
 const Home = () => {
-  const showMessage = () => {
-    toast.info("Go to Dashboard");
-  };
+  const navigate = useNavigate();
+
+  const features = [
+    {
+      icon: <Zap size={24} className="text-purple-600" />,
+      title: "AI-Powered Generation",
+      description: "Describe your process in plain language and our AI instantly creates a professional, structured SOP."
+    },
+    {
+      icon: <FileText size={24} className="text-purple-600" />,
+      title: "PDF Export",
+      description: "Download your SOP as a beautifully formatted PDF ready to share with your team instantly."
+    },
+    {
+      icon: <WandSparkles size={24} className="text-purple-600" />,
+      title: "Voice Input",
+      description: "Speak your process out loud and let AI convert your words into a structured document."
+    },
+    {
+      icon: <ShieldCheck size={24} className="text-purple-600" />,
+      title: "Role Assignment",
+      description: "AI automatically assigns the right job roles and responsibilities to each step of your SOP."
+    },
+    {
+      icon: <Clock size={24} className="text-purple-600" />,
+      title: "Time Estimates",
+      description: "Each step comes with realistic time estimates so your team knows exactly how long tasks take."
+    },
+    {
+      icon: <BarChart3 size={24} className="text-purple-600" />,
+      title: "SOP Management",
+      description: "Store, search, and manage all your SOPs in one organized workspace dashboard."
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      role: "Operations Manager",
+      company: "TechCorp",
+      text: "We cut our onboarding time by 60% using SOP Generator. What used to take days now takes minutes.",
+      rating: 5
+    },
+    {
+      name: "Rahul Sharma",
+      role: "Startup Founder",
+      company: "GrowthLabs",
+      text: "Finally a tool that understands business processes. The AI output is surprisingly detailed and professional.",
+      rating: 5
+    },
+    {
+      name: "Emily Chen",
+      role: "HR Director",
+      company: "ScaleUp Inc",
+      text: "Our entire HR process is now documented. The voice input feature saves us so much time.",
+      rating: 5
+    },
+  ];
+
+  const faqs = [
+    {
+      q: "How does the AI generate SOPs?",
+      a: "You describe your process in plain text or by speaking. Our AI analyzes it and structures it into numbered steps with roles, warnings, and time estimates."
+    },
+    {
+      q: "Is it really free?",
+      a: "Yes! You can generate SOPs, download PDFs, and manage your workspace completely free."
+    },
+    {
+      q: "What types of SOPs can I create?",
+      a: "Any business process — customer support, employee onboarding, sales, inventory management, IT support, restaurant operations and more."
+    },
+    {
+      q: "Can I edit the generated SOP?",
+      a: "Yes, after generation you can review and refine the content before downloading."
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-200 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-16 py-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-
-        {/* LEFT SECTION */}
-        <div className="w-full lg:w-1/2">
-
-          <p className="inline-flex items-center gap-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-semibold px-4 py-2 rounded-full shadow-sm">
-            <Sparkles size={16} />
+      {/* ── HERO ── */}
+      <section className="bg-gradient-to-br from-purple-50 via-white to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <span className="inline-flex items-center gap-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-semibold px-4 py-2 rounded-full text-sm mb-6">
+            <WandSparkles size={16} />
             AI-Powered SOP Generator
-          </p>
+          </span>
 
-          <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight mt-6">
-            <span className="text-gray-900 dark:text-white">Create Professional SOPs</span>
-            <span className="text-purple-700 dark:text-purple-400"> in Minutes,</span>
-            <br />
-            <span className="text-gray-900 dark:text-white">Not Hours.</span>
+          <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight text-gray-900 dark:text-white">
+            Create Professional
+            <span className="text-purple-600 dark:text-purple-400"> SOPs </span>
+            in Minutes
           </h1>
 
-          <p className="text-lg text-gray-600 dark:text-gray-300 mt-6 leading-8 max-w-xl">
-            Generate personalized, professional Standard Operating Procedures
-            that help your team work consistently and efficiently.
+          <p className="mt-6 text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Stop spending days writing Standard Operating Procedures manually.
+            Describe your process — AI structures it into a professional document instantly.
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
             <button
-              onClick={showMessage}
-              className="flex items-center bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-4 rounded-xl shadow-md hover:scale-105 transition-all duration-300"
+              onClick={() => navigate('/register')}
+              className="flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
             >
-              <WandSparkles size={20} className="mr-2" />
-              Generate SOP
+              <WandSparkles size={20} />
+              Get Started Free
+              <ArrowRight size={18} />
             </button>
-
             <button
-              onClick={showMessage}
-              className="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-purple-300 text-gray-800 dark:text-gray-200 font-semibold px-6 py-4 rounded-xl shadow-sm hover:scale-105 transition-all duration-300"
+              onClick={() => navigate('/how-it-works')}
+              className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-semibold px-8 py-4 rounded-xl hover:border-purple-300 hover:scale-105 transition-all duration-300"
             >
-              <CirclePlay size={22} className="mr-2 text-purple-700 dark:text-purple-400" />
-              How it Works
+              See How It Works
             </button>
           </div>
 
-          <ul className="flex flex-wrap gap-4 mt-10">
-            <li className="flex items-center bg-white dark:bg-gray-800 px-4 py-3 rounded-xl shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300">
-              <Zap size={18} className="text-purple-700 dark:text-purple-400 mr-2" />AI-Powered
-            </li>
-            <li className="flex items-center bg-white dark:bg-gray-800 px-4 py-3 rounded-xl shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300">
-              <ShieldCheck size={18} className="text-purple-700 dark:text-purple-400 mr-2" />100% Original
-            </li>
-            <li className="flex items-center bg-white dark:bg-gray-800 px-4 py-3 rounded-xl shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300">
-              <Clock size={18} className="text-purple-700 dark:text-purple-400 mr-2" />Time Saving
-            </li>
-            <li className="flex items-center bg-white dark:bg-gray-800 px-4 py-3 rounded-xl shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300">
-              <FileCheck size={18} className="text-purple-700 dark:text-purple-400 mr-2" />ATS-Friendly
-            </li>
-          </ul>
-
-          <div className="flex flex-wrap gap-8 mt-12">
-            <div className="pr-8 border-r border-gray-300 dark:border-gray-600">
-              <h2 className="text-3xl font-bold text-purple-700 dark:text-purple-400">10K+</h2>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">SOPs Generated</p>
-            </div>
-            <div className="pr-8 border-r border-gray-300 dark:border-gray-600">
-              <h2 className="text-3xl font-bold text-purple-700 dark:text-purple-400">98%</h2>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">User Satisfaction</p>
-            </div>
-            <div className="pr-8 border-r border-gray-300 dark:border-gray-600">
-              <h2 className="text-3xl font-bold text-purple-700 dark:text-purple-400">95%</h2>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">Success Rate</p>
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-purple-700 dark:text-purple-400">24/7</h2>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">AI Support</p>
-            </div>
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center gap-12 mt-16">
+            {[
+              { value: "10K+", label: "SOPs Generated" },
+              { value: "98%", label: "User Satisfaction" },
+              { value: "60%", label: "Time Saved" },
+              { value: "Free", label: "Forever Plan" },
+            ].map(({ value, label }) => (
+              <div key={label} className="text-center">
+                <h2 className="text-3xl font-bold text-purple-600 dark:text-purple-400">{value}</h2>
+                <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">{label}</p>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* RIGHT SECTION */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center mt-10 gap-4">
-          <div className="w-full bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-6 flex flex-col sm:flex-row gap-6">
+      {/* ── HOW IT WORKS ── */}
+      <section className="py-24 px-6 bg-white dark:bg-gray-900">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">How It Works</h2>
+            <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg">Three simple steps to your professional SOP</p>
+          </div>
 
-            {/* Form Column */}
-            <div className="flex-1">
-              <div className="flex items-start gap-3 mb-5">
-                <div className="w-9 h-9 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center shrink-0">
-                  <User size={16} className="text-purple-700 dark:text-purple-300" />
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { step: "1", title: "Describe Your Process", desc: "Type or speak your workflow in plain language. No special format needed.", icon: <MessageSquare size={28} className="text-purple-600" /> },
+              { step: "2", title: "AI Structures It", desc: "Our AI creates numbered steps with roles, warnings, and time estimates automatically.", icon: <WandSparkles size={28} className="text-purple-600" /> },
+              { step: "3", title: "Download & Share", desc: "Export as a professional PDF and share with your team instantly.", icon: <Download size={28} className="text-purple-600" /> },
+            ].map(({ step, title, desc, icon }) => (
+              <div key={step} className="relative text-center p-8 bg-purple-50 dark:bg-gray-800 rounded-2xl border border-purple-100 dark:border-gray-700">
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg">
+                  {step}
                 </div>
-                <div>
-                  <p className="font-semibold text-gray-800 dark:text-white text-sm">Describe your process</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">Paste or type your process. AI will structure it into a professional SOP.</p>
+                <div className="w-16 h-16 bg-white dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+                  {icon}
                 </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{desc}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="space-y-3">
-                <div>
-                  <label className="text-xs font-medium text-gray-700 dark:text-gray-300 block mb-1">Your Process</label>
-                  <textarea
-                    placeholder="e.g., First greet the customer, then ask for their order, then process payment..."
-                    className="w-full text-sm px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:border-purple-400 resize-none"
-                  />
-                  <p className="text-xs text-gray-400 dark:text-gray-500 text-right mt-1">/500</p>
+      {/* ── FEATURES ── */}
+      <section className="py-24 px-6 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Everything You Need</h2>
+            <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg">Powerful features to streamline your documentation</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map(({ icon, title, description }) => (
+              <div key={title} className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300">
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center mb-4">
+                  {icon}
                 </div>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{description}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <button
-                onClick={showMessage}
-                className="w-full mt-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-xl text-sm flex items-center justify-center gap-2 transition-all"
+      {/* ── TEMPLATES ── */}
+      <section className="py-24 px-6 bg-white dark:bg-gray-900">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Ready-Made Templates</h2>
+          <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg mb-12">Start with a template and customize it to your needs</p>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              "Customer Support SOP",
+              "Employee Onboarding SOP",
+              "Sales Process SOP",
+              "Inventory Management SOP",
+              "Restaurant Operations SOP",
+              "IT Support SOP",
+            ].map((template) => (
+              <div
+                key={template}
+                onClick={() => navigate('/templates')}
+                className="flex items-center gap-3 p-4 bg-purple-50 dark:bg-gray-800 rounded-xl border border-purple-100 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-500 cursor-pointer hover:shadow-md transition-all duration-300"
               >
-                <WandSparkles size={16} />
-                Generate SOP
-              </button>
-            </div>
-
-            {/* Divider */}
-            <div className="hidden sm:block w-px bg-gray-100 dark:bg-gray-700 self-stretch" />
-
-            {/* Preview Column */}
-            <div className="flex-1 flex flex-col">
-              <div className="flex items-start gap-3 mb-4">
-                <div className="w-9 h-9 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center shrink-0">
-                  <FileCheck size={16} className="text-purple-700 dark:text-purple-300" />
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800 dark:text-white text-sm">Your SOP Preview</p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">AI-generated preview will appear here.</p>
-                </div>
+                <CheckCircle size={18} className="text-purple-600 dark:text-purple-400 shrink-0" />
+                <span className="text-gray-800 dark:text-gray-200 font-medium text-sm">{template}</span>
               </div>
+            ))}
+          </div>
 
-              <div className="flex-1 space-y-2 overflow-y-auto max-h-64">
-                <div className="space-y-2">
-                  <div className="h-3 w-3/5 bg-purple-100 dark:bg-purple-900 rounded-full" />
-                  {[100, 90, 95, 80, 100, 88, 93, 75, 85, 60].map((w, i) => (
-                    <div key={i} className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full" style={{ width: `${w}%` }} />
+          <button
+            onClick={() => navigate('/templates')}
+            className="mt-8 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105"
+          >
+            Browse All Templates
+          </button>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="py-24 px-6 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Loved by Teams</h2>
+            <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg">See what our users say</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map(({ name, role, company, text, rating }) => (
+              <div key={name} className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(rating)].map((_, i) => (
+                    <Star key={i} size={16} className="text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-
-                <div className="space-y-3">
-                  <h3 className="font-bold text-purple-700 dark:text-purple-400 text-sm"></h3>
-                  <div className="bg-purple-50 dark:bg-gray-700 rounded-lg p-3">
-                    <p className="text-sm font-semibold text-gray-800 dark:text-white">Step</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Role:</p>
-                  </div>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">"{text}"</p>
+                <div>
+                  <p className="font-bold text-gray-900 dark:text-white text-sm">{name}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{role} at {company}</p>
                 </div>
               </div>
-
-              <button
-                onClick={showMessage}
-                className="w-full mt-4 border border-gray-200 dark:border-gray-600 hover:border-purple-300 dark:hover:border-purple-500 text-gray-700 dark:text-gray-300 font-medium py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 transition-all"
-              >
-                <Download size={15} className="text-purple-600 dark:text-purple-400" />
-                Download SOP
-              </button>
-            </div>
-
+            ))}
           </div>
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400">Trusted by students and professionals worldwide</p>
         </div>
+      </section>
 
-      </div>
+      {/* ── FAQ ── */}
+      <section className="py-24 px-6 bg-white dark:bg-gray-900">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">FAQ</h2>
+            <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg">Common questions answered</p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map(({ q, a }) => (
+              <div key={q} className="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2">❓ {q}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="py-24 px-6 bg-purple-600 dark:bg-purple-800">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-white">Ready to Get Started?</h2>
+          <p className="mt-4 text-purple-100 text-lg">Join thousands of teams creating professional SOPs in minutes.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <button
+              onClick={() => navigate('/register')}
+              className="flex items-center justify-center gap-2 bg-white text-purple-600 font-bold px-8 py-4 rounded-xl hover:scale-105 transition-all duration-300 shadow-lg"
+            >
+              <WandSparkles size={20} />
+              Start Free Today
+            </button>
+            <button
+              onClick={() => navigate('/templates')}
+              className="flex items-center justify-center gap-2 border-2 border-white text-white font-semibold px-8 py-4 rounded-xl hover:bg-purple-700 transition-all duration-300"
+            >
+              Browse Templates
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="bg-gray-900 dark:bg-black text-gray-400 py-12 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-white font-bold text-lg mb-3">SOP Generator</h3>
+              <p className="text-sm leading-relaxed">AI-powered tool to create professional Standard Operating Procedures in minutes.</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3">Product</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="hover:text-white cursor-pointer" onClick={() => navigate('/dashboard')}>Dashboard</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => navigate('/templates')}>Templates</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => navigate('/sops')}>My SOPs</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3">Company</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="hover:text-white cursor-pointer" onClick={() => navigate('/how-it-works')}>How it Works</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => navigate('/contact')}>Contact</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-3">Get Started</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="hover:text-white cursor-pointer" onClick={() => navigate('/register')}>Register Free</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => navigate('/login')}>Login</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-8 text-center text-sm">
+            <p>© 2026 SOP Generator. Built with ❤️ by Manish · Dehradun, India</p>
+            <a 
+            className='m-2'
+            target='_blank'
+            rel="noopener noreferrer"
+            href='https://www.linkedin.com/in/manish-suriyal-8aaba82b0/'>Linkedin</a>
+            <a 
+            className='m-2'
+            target='_blank'
+            rel="noopener noreferrer"
+            href='https://mail.google.com/mail/?view=cm&fs=1&to=manishsuriyal21@gmail.com'>Gmail</a>
+          </div>
+        </div>
+      </footer>
+
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

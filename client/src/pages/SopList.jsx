@@ -37,6 +37,13 @@ const SopList = () => {
     }
   };
 
+
+const thisWeekCount = sops.filter(s => {
+    const week = new Date();
+    week.setDate(week.getDate() - 7);
+    return new Date(s.createdAt) > week;
+}).length;
+
   const handleDownload = async (sop) => {
     try {
       const response = await api.get(`/sops/${sop._id}/export/pdf`, {
@@ -124,9 +131,9 @@ const SopList = () => {
           <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { icon: <File size={22} className="text-purple-700 dark:text-purple-400" />, value: sops.length, label: "Total SOPs" },
-              { icon: <Users size={22} className="text-purple-700 dark:text-purple-400" />, value: 5, label: "Workspaces" },
-              { icon: <Star size={22} className="text-purple-700 dark:text-purple-400" />, value: 32, label: "Favorite" },
-              { icon: <Clock size={22} className="text-purple-700 dark:text-purple-400" />, value: 32, label: "Updated This Week" },
+              { icon: <Users size={22} className="text-purple-700 dark:text-purple-400" />, value: "1", label: "Workspaces" },
+              { icon: <Star size={22} className="text-purple-700 dark:text-purple-400" />, value: sops.length > 0 ? "✓" : "0", label: "Favorite" },
+              { icon: <Clock size={22} className="text-purple-700 dark:text-purple-400" />, value: thisWeekCount, label: "Updated This Week" },
             ].map(({ icon, value, label }) => (
               <div
                 key={label}
