@@ -72,9 +72,6 @@ const Dashboard = () => {
     }
   };
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
 
   const location = useLocation();
 
@@ -82,7 +79,7 @@ const Dashboard = () => {
     if (location.state?.prefill) {
       setRawText(location.state.prefill);
     }
-  }, []);
+  }, [location.state]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-200 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
