@@ -25,7 +25,9 @@ Every growing business loses knowledge when employees leave. Writing SOPs manual
 ## 🐳 Docker Hub
 
 Pull images directly:
+
 docker pull manishsuriyal/sop-generator-server:latest
+
 docker pull manishsuriyal/sop-generator-client:latest
 
 ## ✨ Features
