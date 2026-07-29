@@ -1,4 +1,4 @@
-# Use Node.js 18
+# Use Node.js 20
 FROM node:20-alpine
 
 # Set working directory
